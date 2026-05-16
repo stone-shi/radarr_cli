@@ -12,10 +12,10 @@ A CLI tool and Gemini Skill for managing a Radarr instance.
 - `.env`: Environment variables for sensitive info.
 
 ## Roadmap
-- [x] Initialize project and `.env`
-- [x] Implement `list-movies`
-- [x] Implement `search-movie`
-- [x] Implement `add-movie`
-- [x] Create `SKILL.md`
-- [x] Add verification tests
-- [x] Implement client-side pagination for `list-movies`
+- [x] Use Radarr API V3 documentation.
+- [x] Implement core movie management (List, Add, Delete, Update).
+- [x] Implement activity and history tracking (Queue, History).
+- [x] Implement system commands and indexer management.
+- [x] Add JSON output support.
+- [ ] Add more settings-related API endpoints.
+

@@ -1,41 +1,76 @@
+---
+name: radarr
+description: Manage Radarr (movies) via its API. List, search, add, and monitor movies.
+version: 1.0.0
+metadata:
+  openclaw:
+    requires:
+      bins: ["python3"]
+    user-invocable: true
+---
+
 # Radarr CLI Skill
 
-A skill for managing movies in a Radarr instance.
+A skill for managing movies and system settings in a Radarr instance.
 
 ## Description
-This skill allows searching for movies, listing the current library, and adding new movies to Radarr.
+This skill allows searching for movies, managing the library, viewing active downloads, and triggering system commands in Radarr. It supports raw JSON output for all commands using the `--json` flag.
 
 ## Usage
 The skill interacts with a Radarr instance via its API.
 
+### Global Options
+- `--json`: Output the result as a raw JSON string.
+
 ### Commands
 
-#### List Movies
-Lists movies in the Radarr library with pagination.
+#### Library Management
 ```bash
-# Default: page 1, size 20
-python radarr_cli.py list
+# List movies
+python radarr_cli.py list [--page PAGE] [--size SIZE]
 
-# Specific page and size
-python radarr_cli.py list 2 10
+# Get movie details
+python radarr_cli.py get <movie_id>
+
+# Search for movies to add
+python radarr_cli.py search "<term>"
+
+# Add a movie
+python radarr_cli.py add <tmdb_id> [--root-folder PATH] [--quality-profile ID] [--unmonitored] [--search]
+
+# Update a movie
+python radarr_cli.py update <movie_id> [--monitored true|false] [--quality-profile ID]
+
+# Delete a movie
+python radarr_cli.py delete <movie_id> [--delete-files] [--exclude]
 ```
 
-#### Search Movie
-Search for a movie by title.
+#### Activity & History
 ```bash
-python radarr_cli.py search "Inception"
+# View active downloads
+python radarr_cli.py queue [--page PAGE] [--size SIZE]
+
+# View event history
+python radarr_cli.py history [--page PAGE] [--size SIZE]
 ```
 
-#### Add Movie
-Add a movie to Radarr by its TMDB ID.
+#### System & Configuration
 ```bash
-python radarr_cli.py add 27205
-```
+# List root folders
+python radarr_cli.py root-folders
 
-#### System Status
-Check the status of the Radarr instance.
-```bash
+# List quality profiles
+python radarr_cli.py quality-profiles
+
+# Check system status
 python radarr_cli.py status
+
+# Trigger a command
+python radarr_cli.py command <name> [--params JSON_STRING]
+
+# Manage indexers
+python radarr_cli.py indexer list
+python radarr_cli.py indexer test <id>
 ```
 
 ## Setup
